@@ -1,0 +1,518 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="description" content="Urso Mel — amigurumi artesanal em crochê, 22 cm, algodão 100%. Fofurinha Crochê." />
+  <title>Urso Mel — Fofurinha Crochê</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital@0;1&family=Nunito:wght@400;700&display=swap" rel="stylesheet" />
+
+  <style>
+    /* ─────────────────────────────────────────
+       RESET + VARIÁVEIS
+    ───────────────────────────────────────── */
+    *, *::before, *::after {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+    }
+
+    :root {
+      --rosa:         #f7c5c5;
+      --rosa-esc:     #e07b7b;
+      --creme:        #fdf6ed;
+      --caramelo:     #c8814a;
+      --caramelo-esc: #9e5f2e;
+      --verde:        #25d366;
+      --verde-esc:    #1fa854;
+      --texto:        #3a2318;
+      --texto-suave:  #7a5a4a;
+      --branco:       #ffffff;
+
+      /* Fixas: bordas e raios em px */
+      --borda:        2px;
+      --raio:         18px;
+      --sombra:       0 2px 14px rgba(58, 35, 24, 0.09);
+
+      /* Relativas: espaçamento e fonte em rem */
+      --espaco-p:     0.75rem;
+      --espaco-m:     1.25rem;
+      --espaco-g:     2rem;
+      --fonte-p:      0.85rem;
+      --fonte-base:   1rem;
+      --fonte-titulo: 1.5rem;
+    }
+
+    /* ─────────────────────────────────────────
+       BASE — MOBILE FIRST
+    ───────────────────────────────────────── */
+    body {
+      font-family: 'Nunito', sans-serif;
+      font-size: var(--fonte-base);
+      background-color: var(--creme);
+      color: var(--texto);
+      line-height: 1.6;
+    }
+
+    :focus-visible {
+      outline: 3px solid var(--caramelo);
+      outline-offset: 3px;
+      border-radius: 4px;
+    }
+
+    .sr-only {
+      position: absolute;
+      width: 1px;
+      height: 1px;
+      padding: 0;
+      margin: -1px;
+      overflow: hidden;
+      clip: rect(0, 0, 0, 0);
+      white-space: nowrap;
+      border: 0;
+    }
+
+    /* ─────────────────────────────────────────
+       ANIMAÇÕES
+    ───────────────────────────────────────── */
+    @keyframes surgir {
+      from {
+        opacity: 0;
+        transform: translateY(1.25rem);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @keyframes deslizar-esq {
+      from {
+        opacity: 0;
+        transform: translateX(-1.5rem);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes deslizar-dir {
+      from {
+        opacity: 0;
+        transform: translateX(1.5rem);
+      }
+      to {
+        opacity: 1;
+        transform: translateX(0);
+      }
+    }
+
+    @keyframes pulsar {
+      0%, 100% { transform: scale(1); }
+      50%       { transform: scale(1.04); }
+    }
+
+    /* ─────────────────────────────────────────
+       CABEÇALHO — Flexbox
+    ───────────────────────────────────────── */
+    .cabecalho {
+      background-color: var(--branco);
+      border-bottom: var(--borda) solid var(--rosa);
+      padding: var(--espaco-m) var(--espaco-g);
+
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: var(--espaco-p);
+
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .cabecalho__logo {
+      font-family: 'Playfair Display', serif;
+      font-size: var(--fonte-titulo);
+      color: var(--caramelo-esc);
+      text-decoration: none;
+      animation: pulsar 3s ease-in-out infinite;
+      display: inline-block;
+    }
+
+    .cabecalho__voltar {
+      font-size: var(--fonte-p);
+      font-weight: 700;
+      color: var(--caramelo);
+      text-decoration: none;
+      transition: color 0.2s ease;
+    }
+
+    .cabecalho__voltar:hover,
+    .cabecalho__voltar:focus-visible {
+      color: var(--caramelo-esc);
+      text-decoration: underline;
+    }
+
+    /* ─────────────────────────────────────────
+       MIGALHA DE PÃO (breadcrumb)
+    ───────────────────────────────────────── */
+    .migalha {
+      max-width: 64rem;
+      margin: 0 auto;
+      padding: var(--espaco-m) var(--espaco-m) 0;
+
+      /* Flexbox horizontal */
+      display: flex;
+      align-items: center;
+      gap: 0.4rem;
+
+      font-size: var(--fonte-p);
+      color: var(--texto-suave);
+    }
+
+    .migalha a {
+      color: var(--caramelo);
+      text-decoration: none;
+    }
+
+    .migalha a:hover { text-decoration: underline; }
+
+    .migalha__sep { aria-hidden: true; }
+
+    /* ─────────────────────────────────────────
+       PRODUTO — Grid, Mobile First
+       Mobile: coluna única
+       Desktop: duas colunas (media query)
+    ───────────────────────────────────────── */
+    .produto {
+      max-width: 64rem;
+      margin: 0 auto;
+      padding: var(--espaco-m) var(--espaco-m) var(--espaco-g);
+
+      display: grid;
+      grid-template-columns: 1fr; /* Mobile: 1 coluna */
+      gap: var(--espaco-g);
+    }
+
+    /* ─────────────────────────────────────────
+       FOTO DO PRODUTO
+    ───────────────────────────────────────── */
+    .produto__foto {
+      width: 100%;
+      aspect-ratio: 1 / 1;      /* proporção fixa */
+      border-radius: var(--raio);
+      overflow: hidden;
+      background-color: #f5e8de;
+      box-shadow: var(--sombra);
+
+      animation: deslizar-esq 0.5s ease both;
+    }
+
+    .produto__foto img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      transition: transform 0.4s ease;
+    }
+
+    .produto__foto:hover img {
+      transform: scale(1.04);
+    }
+
+    /* ─────────────────────────────────────────
+       INFORMAÇÕES — Flexbox vertical
+    ───────────────────────────────────────── */
+    .produto__info {
+      display: flex;
+      flex-direction: column;
+      gap: var(--espaco-m);
+
+      animation: deslizar-dir 0.5s ease 0.1s both;
+    }
+
+    .produto__nome {
+      font-family: 'Playfair Display', serif;
+      font-size: clamp(1.6rem, 4vw, 2.2rem);
+      color: var(--texto);
+      line-height: 1.2;
+    }
+
+    .produto__preco {
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--caramelo-esc);
+    }
+
+    .produto__descricao {
+      font-size: var(--fonte-base);
+      color: var(--texto-suave);
+      line-height: 1.7;
+    }
+
+    /* ─────────────────────────────────────────
+       FICHA TÉCNICA — Grid de 2 colunas
+    ───────────────────────────────────────── */
+    .ficha {
+      background-color: var(--branco);
+      border-radius: var(--raio);
+      border: 1px solid #f0d8c8;
+      padding: var(--espaco-m);
+    }
+
+    .ficha__titulo {
+      font-weight: 700;
+      color: var(--caramelo-esc);
+      margin-bottom: var(--espaco-p);
+      font-size: var(--fonte-base);
+    }
+
+    .ficha__grade {
+      display: grid;
+      grid-template-columns: 1fr 1fr; /* 2 colunas fixas */
+      gap: 0.5rem 1rem;
+    }
+
+    .ficha__item { display: flex; flex-direction: column; gap: 0.1rem; }
+
+    .ficha__rotulo {
+      font-size: 0.72rem;
+      font-weight: 700;
+      color: var(--texto-suave);
+      text-transform: uppercase;
+      letter-spacing: 0.06em;
+    }
+
+    .ficha__valor {
+      font-size: var(--fonte-base);
+      color: var(--texto);
+    }
+
+    /* ─────────────────────────────────────────
+       BOTÕES DE AÇÃO — Flexbox vertical
+    ───────────────────────────────────────── */
+    .acoes {
+      display: flex;
+      flex-direction: column;
+      gap: var(--espaco-p);
+    }
+
+    /* Estilo base compartilhado dos botões */
+    .btn {
+      display: block;
+      width: 100%;
+      padding: 0.85rem 1.5rem;
+      border-radius: 999px;      /* px fixo para forma de pílula */
+      font-family: 'Nunito', sans-serif;
+      font-size: var(--fonte-base);
+      font-weight: 700;
+      text-align: center;
+      text-decoration: none;
+      cursor: pointer;
+      border: var(--borda) solid transparent;
+      transition: background-color 0.2s ease, transform 0.2s ease;
+    }
+
+    .btn:hover,
+    .btn:focus-visible {
+      transform: translateY(-2px);
+    }
+
+    .btn--whats {
+      background-color: var(--verde);
+      color: var(--branco);
+    }
+
+    .btn--whats:hover,
+    .btn--whats:focus-visible {
+      background-color: var(--verde-esc);
+    }
+
+    .btn--voltar {
+      background-color: transparent;
+      border-color: var(--rosa-esc);
+      color: var(--caramelo-esc);
+    }
+
+    .btn--voltar:hover,
+    .btn--voltar:focus-visible {
+      background-color: var(--rosa);
+    }
+
+    /* ─────────────────────────────────────────
+       RODAPÉ — Flexbox
+    ───────────────────────────────────────── */
+    .rodape {
+      border-top: 1px solid #f0e0d0;
+      margin-top: var(--espaco-g);
+      padding: var(--espaco-g) var(--espaco-m);
+
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      gap: var(--espaco-p);
+
+      font-size: var(--fonte-p);
+      color: var(--texto-suave);
+      text-align: center;
+
+      animation: surgir 0.5s ease 0.3s both;
+    }
+
+    .rodape a {
+      color: var(--caramelo);
+      text-decoration: none;
+    }
+
+    .rodape a:hover { text-decoration: underline; }
+
+    /* ─────────────────────────────────────────
+       MEDIA QUERIES — Mobile First
+    ───────────────────────────────────────── */
+
+    /* Desktop: 720px+ — produto em 2 colunas */
+    @media (min-width: 45rem) {
+      .produto {
+        grid-template-columns: 1fr 1fr;
+        align-items: start;
+        padding: var(--espaco-g) var(--espaco-g);
+      }
+
+      /* Foto ocupa apenas a coluna da esquerda */
+      .produto__foto {
+        animation-name: deslizar-esq;
+      }
+
+      .produto__info {
+        animation-name: deslizar-dir;
+      }
+    }
+
+    @media (min-width: 60rem) {
+      .cabecalho {
+        padding: var(--espaco-m) 3rem;
+      }
+
+      .migalha {
+        padding: var(--espaco-m) 3rem 0;
+      }
+
+      .produto {
+        padding: var(--espaco-g) 3rem;
+      }
+    }
+  </style>
+</head>
+
+<body>
+
+  <header class="cabecalho" role="banner">
+    <a href="index.html" class="cabecalho__logo" aria-label="Fofurinha Crochê — voltar para a página inicial">
+      🧶 Fofurinha Crochê
+    </a>
+    <a href="index.html" class="cabecalho__voltar" aria-label="Voltar para a lista de produtos">
+      ← Voltar à loja
+    </a>
+  </header>
+
+  <!-- MIGALHA DE PÃO para navegação e SEO -->
+  <nav class="migalha" aria-label="Localização na loja">
+    <a href="index.html">Início</a>
+    <span class="migalha__sep" aria-hidden="true">›</span>
+    <a href="index.html">Bichinhos</a>
+    <span class="migalha__sep" aria-hidden="true">›</span>
+    <span aria-current="page">Urso Mel</span>
+  </nav>
+
+  <main id="conteudo-principal">
+
+    <!-- PRODUTO -->
+    <article class="produto" aria-labelledby="nome-produto">
+
+      <!-- FOTO -->
+      <figure class="produto__foto">
+        <!-- Troque src pela sua foto real -->
+        <img
+          src="https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=700&q=80"
+          alt="Amigurumi Urso Mel em crochê caramelo com cachecol listrado removível, 22 cm"
+          width="700"
+          height="700"
+        />
+        <figcaption class="sr-only">Urso Mel — amigurumi artesanal em crochê</figcaption>
+      </figure>
+
+      <!-- INFORMAÇÕES -->
+      <div class="produto__info">
+
+        <header>
+          <h1 class="produto__nome" id="nome-produto">Urso Mel</h1>
+          <p class="produto__preco" aria-label="Preço: R$ 89,90">R$ 89,90</p>
+        </header>
+
+        <p class="produto__descricao">
+          Urso caramelo com cachecol listrado removível, feito à mão ponto a ponto com linha 100% algodão. Rosto bordado com expressão gentil e muito charme.
+        </p>
+
+        <!-- FICHA TÉCNICA -->
+        <section class="ficha" aria-label="Ficha técnica">
+          <h2 class="ficha__titulo">🧵 Ficha técnica</h2>
+          <dl class="ficha__grade">
+            <div class="ficha__item">
+              <dt class="ficha__rotulo">Altura</dt>
+              <dd class="ficha__valor">22 cm</dd>
+            </div>
+            <div class="ficha__item">
+              <dt class="ficha__rotulo">Material</dt>
+              <dd class="ficha__valor">Algodão 100%</dd>
+            </div>
+            <div class="ficha__item">
+              <dt class="ficha__rotulo">Segurança</dt>
+              <dd class="ficha__valor">Todas as idades</dd>
+            </div>
+            <div class="ficha__item">
+              <dt class="ficha__rotulo">Prazo</dt>
+              <dd class="ficha__valor">5 a 7 dias úteis</dd>
+            </div>
+          </dl>
+        </section>
+
+        <!-- AÇÕES -->
+        <div class="acoes" role="group" aria-label="Ações do produto">
+          <a
+            class="btn btn--whats"
+            href="https://wa.me/5547999990000?text=Ol%C3%A1!%20Quero%20encomendar%20o%20Urso%20Mel%20%F0%9F%A7%B8"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Encomendar o Urso Mel pelo WhatsApp (abre em nova aba)"
+          >
+            💬 Encomendar pelo WhatsApp
+          </a>
+          <a
+            class="btn btn--voltar"
+            href="index.html"
+            aria-label="Voltar para ver outros produtos"
+          >
+            Ver outros produtos
+          </a>
+        </div>
+
+      </div>
+    </article>
+
+  </main>
+
+  <footer class="rodape" role="contentinfo">
+    <p>Feito com carinho 🧡 por Fofurinha Crochê</p>
+    <address>
+      <a href="https://wa.me/5547999990000" aria-label="Contato pelo WhatsApp">📱 (47) 9 9999-0000</a>
+      &nbsp;·&nbsp;
+      <a href="https://instagram.com/fofurinhacroche" aria-label="Instagram da Fofurinha Crochê" target="_blank" rel="noopener noreferrer">📷 @fofurinhacroche</a>
+    </address>
+  </footer>
+
+</body>
+</html>
