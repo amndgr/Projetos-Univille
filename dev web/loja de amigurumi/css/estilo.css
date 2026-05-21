@@ -6,7 +6,6 @@
 }
 
 :root {
-  /* Cores */
   --rosa:         #f7c5c5;
   --rosa-esc:     #e07b7b;
   --creme:        #fdf6ed;
@@ -89,10 +88,6 @@ body {
   }
 }
 
-@keyframes pulsar {
-  0%, 100% { transform: scale(1); }
-  50%       { transform: scale(1.04); }
-}
 
 .cabecalho {
   background-color: var(--branco);
@@ -115,7 +110,6 @@ body {
   font-size: var(--fonte-titulo);
   color: var(--caramelo-esc);
   text-decoration: none;
-  animation: pulsar 3s ease-in-out infinite;
   display: inline-block;
 }
 
@@ -434,9 +428,7 @@ body {
   line-height: 1.7;
 }
 
-/* ─────────────────────────────────────────
-   FICHA TÉCNICA — Grid de 2 colunas
-───────────────────────────────────────── */
+ 
 .ficha {
   background-color: var(--branco);
   border-radius: var(--raio);
@@ -453,7 +445,7 @@ body {
 
 .ficha__grade {
   display: grid;
-  grid-template-columns: 1fr 1fr; /* 2 colunas */
+  grid-template-columns: 1fr 1fr; 
   gap: 0.5rem 1rem;
 }
 
@@ -476,19 +468,13 @@ body {
   color: var(--texto);
 }
 
-/* ─────────────────────────────────────────
-   AÇÕES — Flexbox vertical
-───────────────────────────────────────── */
+
 .acoes {
   display: flex;
   flex-direction: column;
   gap: var(--espaco-p);
 }
 
-/* ─────────────────────────────────────────
-   MEDIA QUERIES — Mobile First
-   Só adicionamos o que muda em telas maiores
-───────────────────────────────────────── */
 
 /* Tablet: 640px+ */
 @media (min-width: 40rem) {
@@ -501,7 +487,6 @@ body {
   }
 }
 
-/* Desktop médio: 720px+ — produto em 2 colunas */
 @media (min-width: 45rem) {
   .produto {
     grid-template-columns: 1fr 1fr;
@@ -518,7 +503,6 @@ body {
   }
 }
 
-/* Desktop: 960px+ */
 @media (min-width: 60rem) {
   .grade {
     grid-template-columns: repeat(4, 1fr);
