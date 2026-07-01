@@ -1,0 +1,20 @@
+[
+    {
+        "id": 1,
+        "nome": "Fone de ouvido branco",
+        "descricao": "branco, philco, com marcas de uso",
+        "categoria": "Eletrônicos",
+        "local": "Sala C324",
+        "data": "01/07/2026 15:59",
+        "status": "disponível"
+    },
+    {
+        "id": 2,
+        "nome": "Mochila",
+        "descricao": "Preta, Adidas",
+        "categoria": "Acessórios",
+        "local": "Sala F 308",
+        "data": "01/07/2026 16:01",
+        "status": "retirado"
+    }
+]
