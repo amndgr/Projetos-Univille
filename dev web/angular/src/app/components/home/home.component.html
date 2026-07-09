@@ -1,0 +1,62 @@
+<section class="heroi" aria-labelledby="heroi-titulo">
+  <h1 class="heroi__titulo" id="heroi-titulo">
+    Feito com <em>amor</em> e linha 🧶
+  </h1>
+  <p class="heroi__texto">
+    Cada amigurumi é criado à mão, ponto a ponto. Perfeito para presentear ou colecionar!
+  </p>
+  <a href="#produtos" class="heroi__link">Ver produtos</a>
+</section>
+
+<section class="produtos" aria-labelledby="titulo-produtos" id="produtos">
+  <h2 class="produtos__titulo" id="titulo-produtos">Nossos produtos</h2>
+
+  <!-- Two-way binding: [(ngModel)] mantém "termoBusca" sincronizado com o campo -->
+  <div class="busca">
+    <input
+      type="search"
+      class="busca__campo"
+      placeholder="Buscar amigurumi pelo nome..."
+      [(ngModel)]="termoBusca"
+      aria-label="Buscar produto pelo nome"
+    />
+    <!-- Event binding: (click) chama o método limparBusca() do componente -->
+    <button
+      type="button"
+      class="busca__limpar"
+      *ngIf="termoBusca"
+      (click)="limparBusca()"
+      aria-label="Limpar busca"
+    >
+      ✕
+    </button>
+  </div>
+
+  <!-- *ngIf: exibe a mensagem só quando a busca não encontra nada -->
+  <p class="busca__vazio" *ngIf="produtosFiltrados.length === 0">
+    Nenhum amigurumi encontrado para "{{ termoBusca }}". Tente outro nome!
+  </p>
+
+  <ul class="grade" role="list" *ngIf="produtosFiltrados.length > 0">
+    <!-- *ngFor: repete o <li> para cada produto da lista filtrada -->
+    <li *ngFor="let produto of produtosFiltrados; let i = index" [style.--ordem]="i + 1">
+      <article>
+        <!-- routerLink com parâmetro dinâmico + property binding em atributos da imagem -->
+        <a
+          class="card"
+          [routerLink]="['/produto', produto.id]"
+          [attr.aria-label]="'Ver detalhes: ' + produto.nome + ' — R$ ' + produto.preco"
+        >
+          <div class="card__foto">
+            <img [src]="produto.imagem" [alt]="produto.imagemAlt" width="400" height="400" />
+          </div>
+          <div class="card__info">
+            <h3 class="card__nome">{{ produto.nome }}</h3>
+            <!-- Pipe embutido "currency" formatando o preço em Real -->
+            <p class="card__preco">{{ produto.preco | currency:'BRL' }}</p>
+          </div>
+        </a>
+      </article>
+    </li>
+  </ul>
+</section>

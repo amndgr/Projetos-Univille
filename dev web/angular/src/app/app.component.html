@@ -1,0 +1,22 @@
+<header class="cabecalho" role="banner">
+  <!-- routerLink: navegação sem recarregar a página (parte do Routing) -->
+  <a routerLink="/" class="cabecalho__logo" aria-label="{{ nomeLoja }} — página inicial">
+    🧶 {{ nomeLoja }}
+  </a>
+  <p class="cabecalho__contato" aria-label="Localização">Amigurumis artesanais · Joinville, SC</p>
+</header>
+
+<main id="conteudo-principal">
+  <!-- router-outlet: onde o Angular renderiza o componente da rota ativa -->
+  <router-outlet></router-outlet>
+</main>
+
+<footer class="rodape" role="contentinfo">
+  <p>Feito com carinho por {{ nomeLoja }}</p>
+  <address>
+    <a [href]="whatsapp" aria-label="Falar pelo WhatsApp">📱 {{ contato }}</a>
+    &nbsp;·&nbsp;
+    <a [href]="instagram" aria-label="Instagram da loja">📷 @fio_encantado</a>
+  </address>
+  <p>&copy; {{ anoAtual }} {{ nomeLoja }}</p>
+</footer>

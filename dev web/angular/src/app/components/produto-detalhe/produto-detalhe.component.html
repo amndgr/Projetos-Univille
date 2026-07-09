@@ -1,0 +1,70 @@
+<ng-container *ngIf="produto; else naoEncontrado">
+  <nav class="migalha" aria-label="Localização na loja">
+    <a routerLink="/">Início</a>
+    <span aria-hidden="true">›</span>
+    <a routerLink="/">Bichinhos</a>
+    <span aria-hidden="true">›</span>
+    <span aria-current="page">{{ produto.nome }}</span>
+  </nav>
+
+  <article class="produto" aria-labelledby="nome-produto">
+    <figure class="produto__foto">
+      <img [src]="produto.imagem" [alt]="produto.imagemAlt" width="700" height="700" />
+      <figcaption class="sr-only">{{ produto.nome }} — amigurumi artesanal em crochê</figcaption>
+    </figure>
+
+    <div class="produto__info">
+      <header>
+        <h1 class="produto__nome" id="nome-produto">{{ produto.nome }}</h1>
+        <p class="produto__preco">{{ produto.preco | currency:'BRL' }}</p>
+      </header>
+
+      <!-- Pipe customizado "resumo" limitando o tamanho do texto exibido -->
+      <p class="produto__descricao">{{ produto.descricao | resumo:220 }}</p>
+
+      <section class="ficha" aria-label="Ficha técnica">
+        <h2 class="ficha__titulo">🧵 Ficha técnica</h2>
+        <dl class="ficha__grade">
+          <div class="ficha__item">
+            <dt class="ficha__rotulo">Altura</dt>
+            <dd class="ficha__valor">{{ produto.altura }}</dd>
+          </div>
+          <div class="ficha__item">
+            <dt class="ficha__rotulo">Material</dt>
+            <dd class="ficha__valor">{{ produto.material }}</dd>
+          </div>
+          <div class="ficha__item">
+            <dt class="ficha__rotulo">Segurança</dt>
+            <dd class="ficha__valor">{{ produto.seguranca }}</dd>
+          </div>
+          <div class="ficha__item">
+            <dt class="ficha__rotulo">Prazo</dt>
+            <dd class="ficha__valor">{{ produto.prazo }}</dd>
+          </div>
+        </dl>
+      </section>
+
+      <div class="acoes" role="group" aria-label="Ações do produto">
+        <a
+          class="btn btn--whats"
+          [href]="linkWhatsapp(produto.nome)"
+          target="_blank"
+          [attr.aria-label]="'Encomendar ' + produto.nome + ' pelo WhatsApp (abre em nova aba)'"
+        >
+          💬 Encomendar pelo WhatsApp
+        </a>
+        <a class="btn btn--voltar" routerLink="/" aria-label="Voltar para ver outros produtos">
+          Ver outros produtos
+        </a>
+      </div>
+    </div>
+  </article>
+</ng-container>
+
+<ng-template #naoEncontrado>
+  <div class="nao-encontrado">
+    <h1>Ops! Amigurumi não encontrado 🧶</h1>
+    <p>O produto que você procura não existe ou foi removido.</p>
+    <a class="btn btn--voltar" routerLink="/">Voltar à loja</a>
+  </div>
+</ng-template>
